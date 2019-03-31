@@ -6,7 +6,7 @@ def shunt(infix):
     to postfix."""
 
     #Dictionary of special characters and values representing precedence
-    specials = {'*': 50, '.': 40, '|': 30}
+    specials = {'*': 50, '.': 40, '|': 30, '+': 20}
 
     #Output String
     pofix = ""
@@ -40,14 +40,10 @@ def shunt(infix):
     #Return postfix regex
     return pofix
 
-
-
-
 class state:
     label = None
     edge1 = None
     edge2 = None
-
 
 class nfa:
     initial = None
@@ -110,9 +106,8 @@ def compile(pofix):
             #Create a new initial and accept state
             initial = state()
             accept = state()
-            #Join the new initial state to NFA1's initial state and the new accept state
+            #Join the new initial state to NFA1's initial state
             initial.edge1 = nfa1.initial
-            initial.edge2 = accept
             #Join the old accept state to the new accept state and nfa1's initial state
             nfa1.accept.edge1 = nfa1.initial
             nfa1.accept.edge2 = accept
@@ -193,8 +188,13 @@ menuOption = eval(input("Press 1 to enter your own data, or 2 to run preloaded t
 if menuOption == 2:
 
     # Tests
+    infixes = ["a+"]
+    strings = ["", "a", "aaa", "ba", "bb"]
+
+    """
     infixes = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*", "0.1*","(0.1)*"]
     strings = ["", "abc", "abbc", "abad", "abbbc", "01"]
+    """
 
     for i in infixes:
         for s in strings:

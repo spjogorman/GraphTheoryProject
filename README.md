@@ -1,7 +1,7 @@
 # GraphTheoryProject
 # Sean O'Gorman - G00314259 
 
-The script can be run using the command line and typing: python thompson.python
+The script can be run using the command line and typing: python thompson.py
 
 Once the script has been run, the user will be prompted to press 1 to enter  their own data, 
 or press 2 to run a series of precoded tests.

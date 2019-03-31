@@ -6,7 +6,7 @@ def shunt(infix):
     to postfix."""
 
     #Dictionary of special characters and values representing precedence
-    specials = {'*': 50, '.': 40, '|': 30, '+': 20}
+    specials = {'*': 50, '.': 40, '|': 30, '+': 20, '?': 10}
 
     #Output String
     pofix = ""
@@ -114,6 +114,20 @@ def compile(pofix):
             #Push new NFA to the stack
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
+        elif c == '?':
+            #Pop the NFA off the stack
+            nfa1 = nfastack.pop()
+            #Create a new initial and accept state
+            initial = state()
+            accept = state()
+            #Join the new initial state to NFA1's initial state and the new accept state
+            initial.edge1 = nfa1.initial
+            initial.edge2 = accept
+            #Join the old accept state to the new accept state
+            nfa1.accept.edge2 = accept
+            #Push new NFA to the stack
+            newnfa = nfa(initial, accept)
+            nfastack.append(newnfa)
         else:
             #Create a new initial and accept states
             accept = state()
@@ -188,8 +202,8 @@ menuOption = eval(input("Press 1 to enter your own data, or 2 to run preloaded t
 if menuOption == 2:
 
     # Tests
-    infixes = ["a+"]
-    strings = ["", "a", "aaa", "ba", "bb"]
+    infixes = ["a?"]
+    strings = ["", "a", "aaa", "ba", "bb", "aaab", "aaaba"]
 
     """
     infixes = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*", "0.1*","(0.1)*"]

@@ -1,5 +1,4 @@
-#Sean O'Gorman
-
+#Sean O'Gorman - G00314259
 
 def shunt(infix):
     """The Shunting Yard Algorithm for converting infix regular expressions 
@@ -100,7 +99,7 @@ def compile(pofix):
             #Push new NFA to the stack
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
-        elif c == '+':
+        elif c == '+': #( at least one of character )
             #Pop the NFA off the stack
             nfa1 = nfastack.pop()
             #Create a new initial and accept state
@@ -114,7 +113,7 @@ def compile(pofix):
             #Push new NFA to the stack
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
-        elif c == '?':
+        elif c == '?': #( zero or one of character )
             #Pop the NFA off the stack
             nfa1 = nfastack.pop()
             #Create a new initial and accept state
@@ -213,8 +212,8 @@ if menuOption == 2:
             print(match(i, s), i, s)
     
     #Tests for + operator ( at least one of character )
-    infixesTestsTwo = ["a+", "a.a+", "b+a", "(a|b)+"]
-    stringsTestsTwo = ["", "a", "aaa", "ba", "bb", "aaab", "aaaba"]
+    infixesTestsTwo = ["a+", "b.a+", "b+a", "(a|b)+"]
+    stringsTestsTwo = ["", "a", "aaa", "ba", "baaa", "aaab", "aaaba"]
     print("\n\n----------- Test for '+' operators -----------\n")
     print("----------- ( at least one of character ) -----------\n")
 
@@ -224,8 +223,8 @@ if menuOption == 2:
             print(match(i, s), i, s)
     
     #Tests for ? operator ( zero or one of character )
-    infixesTestsThree = ["a?", "a.a?*", "b?a", "(a|b)?"]
-    stringsTestsThree = ["", "a", "aaa", "b", "bb", "ab", "aaaba"]
+    infixesTestsThree = ["a?", "a.a?", "b?a", "(a|b)?"]
+    stringsTestsThree = ["", "a", "aa", "aaa", "b", "bb", "ab", "ba"]
     print("\n\n----------- Test for '+' operators -----------\n")
     print("----------- ( zero or one of character ) -----------\n")
 
@@ -234,7 +233,7 @@ if menuOption == 2:
         for s in stringsTestsThree:
             print(match(i, s), i, s)
     
-
+#Allows the user to enter their own expressions
 elif menuOption == 1:
     numOfInfixes = eval(input("How many Infix expressions would you like to enter? (please use whole number, eg, 1,2,3..etc)\n"))
 

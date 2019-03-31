@@ -6,7 +6,7 @@ def shunt(infix):
     to postfix."""
 
     #Dictionary of special characters and values representing precedence
-    specials = {'*': 50, '.': 40, '|': 30, '+': 20, '?': 10}
+    specials = {'*': 50, '+': 45, '?': 42, '.': 40, '|': 30}
 
     #Output String
     pofix = ""
@@ -202,17 +202,38 @@ menuOption = eval(input("Press 1 to enter your own data, or 2 to run preloaded t
 if menuOption == 2:
 
     # Tests
-    infixes = ["a?"]
-    strings = ["", "a", "aaa", "ba", "bb", "aaab", "aaaba"]
 
-    """
-    infixes = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*", "0.1*","(0.1)*"]
-    strings = ["", "abc", "abbc", "abad", "abbbc", "01"]
-    """
-
-    for i in infixes:
-        for s in strings:
+    #Basic tests for . | * operators 
+    infixesTestsOne = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*","a.b*", "(a.b)*"]
+    stringsTestsOne = ["", "abc", "abbc", "abad", "abbbc", "a", "ab", "abbb"]
+    print("\n\n----------- Basic tests for '.', '|' and '*' operators -----------\n")
+    for i in infixesTestsOne:
+        print("\n")
+        for s in stringsTestsOne:
             print(match(i, s), i, s)
+    
+    #Tests for + operator ( at least one of character )
+    infixesTestsTwo = ["a+", "a.a+", "b+a", "(a|b)+"]
+    stringsTestsTwo = ["", "a", "aaa", "ba", "bb", "aaab", "aaaba"]
+    print("\n\n----------- Test for '+' operators -----------\n")
+    print("----------- ( at least one of character ) -----------\n")
+
+    for i in infixesTestsTwo:
+        print("\n")
+        for s in stringsTestsTwo:
+            print(match(i, s), i, s)
+    
+    #Tests for ? operator ( zero or one of character )
+    infixesTestsThree = ["a?", "a.a?*", "b?a", "(a|b)?"]
+    stringsTestsThree = ["", "a", "aaa", "b", "bb", "ab", "aaaba"]
+    print("\n\n----------- Test for '+' operators -----------\n")
+    print("----------- ( zero or one of character ) -----------\n")
+
+    for i in infixesTestsThree:
+        print("\n")
+        for s in stringsTestsThree:
+            print(match(i, s), i, s)
+    
 
 elif menuOption == 1:
     numOfInfixes = eval(input("How many Infix expressions would you like to enter? (please use whole number, eg, 1,2,3..etc)\n"))

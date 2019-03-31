@@ -104,6 +104,21 @@ def compile(pofix):
             #Push new NFA to the stack
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
+        elif c == '+':
+            #Pop the NFA off the stack
+            nfa1 = nfastack.pop()
+            #Create a new initial and accept state
+            initial = state()
+            accept = state()
+            #Join the new initial state to NFA1's initial state and the new accept state
+            initial.edge1 = nfa1.initial
+            initial.edge2 = accept
+            #Join the old accept state to the new accept state and nfa1's initial state
+            nfa1.accept.edge1 = nfa1.initial
+            nfa1.accept.edge2 = accept
+            #Push new NFA to the stack
+            newnfa = nfa(initial, accept)
+            nfastack.append(newnfa)
         else:
             #Create a new initial and accept states
             accept = state()
@@ -170,10 +185,35 @@ def match(infix, string):
     return(nfa.accept in current)
 
 
-# Tests
-infixes = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*", "a.(b.b)*.c"]
-strings = ["", "abc", "abbc", "abad", "abbbc"]
+userInfixes = []
+userStrings = [""]
 
-for i in infixes:
-    for s in strings:
-        print(match(i, s), i, s)
+menuOption = eval(input("Press 1 to enter your own data, or 2 to run preloaded tests\n"))
+
+if menuOption == 2:
+
+    # Tests
+    infixes = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*", "0.1*","(0.1)*"]
+    strings = ["", "abc", "abbc", "abad", "abbbc", "01"]
+
+    for i in infixes:
+        for s in strings:
+            print(match(i, s), i, s)
+
+elif menuOption == 1:
+    numOfInfixes = eval(input("How many Infix expressions would you like to enter? (please use whole number, eg, 1,2,3..etc)\n"))
+
+    for x in range(0, numOfInfixes):
+        infixEntry = input("Please enter Infix expression e.g. a|b.b* (where '.' = and, '|' = or , '*' = one or more)\n")
+        userInfixes.append(infixEntry)
+
+    numOfStrings = eval(input("How many Strings would you like to evaluate? (please use whole number, eg, 1,2,3..etc)\n"))
+
+    for x in range(0, numOfStrings):
+        stringEntry = input("Please enter String (Empty String is included by default)\n")
+        userStrings.append(stringEntry)
+
+    for i in userInfixes:
+        for s in userStrings:
+            print(match(i, s), i, s)
+

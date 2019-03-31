@@ -1,5 +1,5 @@
 # GraphTheoryProject
-# Sean O'Gorman - G00314259
+# Sean O'Gorman - G00314259 
 
 The script can be run using the command line and typing: python thompson.python
 

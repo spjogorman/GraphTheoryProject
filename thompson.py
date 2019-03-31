@@ -1,4 +1,4 @@
-#Sean O'Gorman - G00314259
+#Sean O'Gorman - G00314259 
 
 def shunt(infix):
     """The Shunting Yard Algorithm for converting infix regular expressions 

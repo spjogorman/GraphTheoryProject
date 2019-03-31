@@ -16,8 +16,6 @@ input each string one at a time.
 
 Once the user has finished entering all of their data, the script will convert the infix expressions to postfix expressions,
 and will compare them to the strings that the user entered, and then show whether each string matches or fails to match each expression.
-<<<<<<< HEAD
-
 
 Also included in the project are some example outputs from the program. 
 User_Input_Example.png shows an example process of using your own data by choosing menu option '1'
